@@ -34,9 +34,6 @@ export default {
       this.product.imagesUrl = [];
       this.product.imagesUrl.push('');
     },
-    openModal() {
-      productModal.show();
-    },
     closeModal() {
       productModal.hide();
     }
