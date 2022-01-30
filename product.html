@@ -70,6 +70,8 @@
     <!-- modal元件 -->
     <modal-for-product :product="tempProduct" :status="status" @emit-update-product="getProductData">
     </modal-for-product>
+    <del-modal-for-product :del-product="tempProduct" @emit-update-product="getProductData">
+    </del-modal-for-product>
 
   </div>
 

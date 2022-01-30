@@ -1,7 +1,7 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.1.4/vue.esm-browser.min.js';
 
 import pagination from './pagination.js'; // 匯入分頁元件(預設匯出)
-import modalForProduct from './modal.js';
+import { modalForProduct, delModalForProduct } from './modal.js';
 
 let productModal = '';
 let delProductModal = '';
@@ -20,10 +20,11 @@ const app = createApp({
   },
   components: {
     pagination,
-    modalForProduct
+    modalForProduct,
+    delModalForProduct
   },
   methods: {
-    checkLogin() { //確認是否登入
+    checkLogin() { // 確認是否登入
       // 取出token
       const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
       axios.defaults.headers.common['Authorization'] = token;
@@ -63,27 +64,11 @@ const app = createApp({
         this.tempProduct = JSON.parse(JSON.stringify(item));
         delProductModal.show();
       }
-      console.log(item);
     },
-    deleteProduct() { // 刪除產品
-      const id = this.tempProduct.id;
-      const url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${id}`;
-      axios.delete(url)
-        .then(() => {
-          Swal.fire({
-            icon: 'success',
-            text: '已刪除商品'
-          });
-          delProductModal.hide();
-          this.getProductData();
-        })
-        .catch((err) => {
-          alert(err.data.message);
-        })
-    },
+
   },
   mounted() {
-    // 實體化modal(這裡才取的到DOM元素)
+    // 實體化 modal (這裡才取的到DOM元素)
     productModal = new bootstrap.Modal(document.getElementById('productModal'));
     delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'));
   },
