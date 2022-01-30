@@ -1,5 +1,7 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.1.4/vue.esm-browser.min.js';
 
+import pagination from './pagination.js'; // 匯入分頁元件(預設匯出)
+
 let productModal = '';
 let delProductModal = '';
 const app = createApp({
@@ -11,8 +13,12 @@ const app = createApp({
       tempProduct: {
         imagesUrl: []
       },
-      status: ''
+      status: '',
+      pagination: {}
     }
+  },
+  components: {
+    pagination,
   },
   methods: {
     checkLogin() { //確認是否登入
@@ -30,11 +36,12 @@ const app = createApp({
           window.location = 'index.html';
         })
     },
-    getProductData() { // 取得產品資料
-      const url = `${this.apiUrl}/api/${this.apiPath}/admin/products/all`;
+    getProductData(page = 1) { // 取得產品資料
+      const url = `${this.apiUrl}/api/${this.apiPath}/admin/products?page=${page}`;
       axios.get(url)
         .then((res) => {
           this.products = res.data.products;
+          this.pagination = res.data.pagination;
         })
         .catch((err) => {
           alert(err.data.message);
