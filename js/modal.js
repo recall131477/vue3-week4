@@ -1,5 +1,3 @@
-let productModal = '';
-let delProductModal = '';
 // 新增、編輯 modal 元件
 export const modalForProduct = {
   props: ['product', 'status'],
@@ -19,8 +17,8 @@ export const modalForProduct = {
               icon: 'success',
               text: '已建立商品'
             });
-            this.closeModal();
             this.$emit('emit-update-product');
+            this.$emit('close-product-modal');
           })
           .catch((err) => {
             alert(err.data.message);
@@ -34,8 +32,8 @@ export const modalForProduct = {
               icon: 'success',
               text: '已更新商品'
             });
-            this.closeModal();
             this.$emit('emit-update-product');
+            this.$emit('close-product-modal');
           })
           .catch((err) => {
             alert(err.data.message);
@@ -46,13 +44,6 @@ export const modalForProduct = {
       this.product.imagesUrl = [];
       this.product.imagesUrl.push('');
     },
-    closeModal() {
-      productModal.hide();
-    }
-  },
-  mounted() {
-    // 實體化 modal (這裡才取的到DOM元素)
-    productModal = new bootstrap.Modal(document.getElementById('productModal'));
   },
   template:
     `
@@ -191,20 +182,13 @@ export const delModalForProduct = {
             icon: 'success',
             text: '已刪除商品'
           });
-          this.closeModal();
           this.$emit('emit-update-product');
+          this.$emit('close-delete-product-modal');
         })
         .catch((err) => {
           alert(err.data.message);
         })
     },
-    closeModal() {
-      productModal.hide();
-    }
-  },
-  mounted() {
-    // 實體化 modal (這裡才取的到DOM元素)
-    delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'));
   },
   template:
     `

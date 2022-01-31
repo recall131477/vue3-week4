@@ -1,7 +1,6 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.1.4/vue.esm-browser.min.js';
-
 import pagination from './pagination.js'; // 匯入分頁元件(預設匯出)
-import { modalForProduct, delModalForProduct } from './modal.js';
+import { modalForProduct, delModalForProduct } from './modal.js'; // 匯入 modal 元件(具名匯出)
 
 let productModal = '';
 let delProductModal = '';
@@ -52,7 +51,7 @@ const app = createApp({
     },
     openModal(status, item) { //打開modal並判斷執行動作
       this.status = status;
-      if (status === 'add') { // add時變回資料初始狀態
+      if (status === 'add') { // 狀態為add時變回資料初始狀態
         this.tempProduct = {
           imagesUrl: [],
         };
@@ -65,7 +64,12 @@ const app = createApp({
         delProductModal.show();
       }
     },
-
+    closeProductModal() { // 關閉新增、編輯產品 modal
+      productModal.hide();
+    },
+    closeDeleteProductModal() { // 關閉刪除產品 modal
+      delProductModal.hide();
+    }
   },
   mounted() {
     // 實體化 modal (這裡才取的到DOM元素)
