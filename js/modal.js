@@ -1,6 +1,7 @@
 // 新增、編輯 modal 元件
 export const modalForProduct = {
-  props: ['product', 'status'],
+  // currentPage = pagination.current_page 把當前頁面帶進來
+  props: ['product', 'status', 'currentPage'],
   data() {
     return {
       apiUrl: 'https://vue3-course-api.hexschool.io/v2',
@@ -32,7 +33,8 @@ export const modalForProduct = {
               icon: 'success',
               text: '已更新商品'
             });
-            this.$emit('emit-update-product');
+            // this.currentPage = 當更新產品時，更新完畢重新渲染畫面時，停留在當前頁面
+            this.$emit('emit-update-product', this.currentPage);
             this.$emit('close-product-modal');
           })
           .catch((err) => {
@@ -165,7 +167,8 @@ export const modalForProduct = {
 
 // 刪除 modal 元件
 export const delModalForProduct = {
-  props: ['delProduct'],
+  // currentPage = pagination.current_page 把當前頁面帶進來
+  props: ['delProduct', 'currentPage'],
   data() {
     return {
       apiUrl: 'https://vue3-course-api.hexschool.io/v2',
@@ -182,7 +185,8 @@ export const delModalForProduct = {
             icon: 'success',
             text: '已刪除商品'
           });
-          this.$emit('emit-update-product');
+          // this.currentPage = 當刪除產品時，刪除完畢重新渲染畫面時，停留在當前頁面
+          this.$emit('emit-update-product', this.currentPage);
           this.$emit('close-delete-product-modal');
         })
         .catch((err) => {
