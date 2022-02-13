@@ -68,11 +68,11 @@
     </div>
 
     <!-- modal元件 -->
-    <modal-for-product :product="tempProduct" :status="status" :current-page="pagination.current_page"
-      @emit-update-product="getProductData" @close-product-modal="closeProductModal">
+    <modal-for-product ref="callProductModal" :product="tempProduct" :status="status"
+      :current-page="pagination.current_page" @emit-update-product="getProductData">
     </modal-for-product>
-    <del-modal-for-product :del-product="tempProduct" :current-page="pagination.current_page"
-      @emit-update-product="getProductData" @close-delete-product-modal="closeDeleteProductModal">
+    <del-modal-for-product ref="callDelProductModal" :del-product="tempProduct" :current-page="pagination.current_page"
+      @emit-update-product="getProductData">
     </del-modal-for-product>
 
   </div>

@@ -2,8 +2,6 @@ import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.1.4/vue.
 import pagination from './pagination.js'; // 匯入分頁元件(預設匯出)
 import { modalForProduct, delModalForProduct } from './modal.js'; // 匯入 modal 元件(具名匯出)
 
-let productModal = '';
-let delProductModal = '';
 const app = createApp({
   data() {
     return {
@@ -55,26 +53,15 @@ const app = createApp({
         this.tempProduct = {
           imagesUrl: [],
         };
-        productModal.show();
+        this.$refs.callProductModal.openProductModal(); // 開啟新增、編輯產品 modal
       } else if (status === 'edit') { // 編輯 深層拷貝
         this.tempProduct = JSON.parse(JSON.stringify(item));
-        productModal.show();
+        this.$refs.callProductModal.openProductModal(); // 開啟新增、編輯產品 modal
       } else if (status === 'delete') { // 刪除 深層拷貝
         this.tempProduct = JSON.parse(JSON.stringify(item));
-        delProductModal.show();
+        this.$refs.callDelProductModal.openDeleteProductModal(); // 開啟刪除產品 modal
       }
     },
-    closeProductModal() { // 關閉新增、編輯產品 modal
-      productModal.hide();
-    },
-    closeDeleteProductModal() { // 關閉刪除產品 modal
-      delProductModal.hide();
-    }
-  },
-  mounted() {
-    // 實體化 modal (這裡才取的到DOM元素)
-    productModal = new bootstrap.Modal(document.getElementById('productModal'));
-    delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'));
   },
   created() {
     this.checkLogin();

@@ -6,6 +6,7 @@ export const modalForProduct = {
     return {
       apiUrl: 'https://vue3-course-api.hexschool.io/v2',
       apiPath: 'rousong',
+      productModal: '',
     }
   },
   methods: {
@@ -19,7 +20,7 @@ export const modalForProduct = {
               text: '已建立商品'
             });
             this.$emit('emit-update-product');
-            this.$emit('close-product-modal');
+            this.closeProductModal();
           })
           .catch((err) => {
             alert(err.data.message);
@@ -35,7 +36,7 @@ export const modalForProduct = {
             });
             // this.currentPage = 當更新產品時，更新完畢重新渲染畫面時，停留在當前頁面
             this.$emit('emit-update-product', this.currentPage);
-            this.$emit('close-product-modal');
+            this.closeProductModal();
           })
           .catch((err) => {
             alert(err.data.message);
@@ -46,6 +47,16 @@ export const modalForProduct = {
       this.product.imagesUrl = [];
       this.product.imagesUrl.push('');
     },
+    openProductModal() { // 開啟新增、編輯產品 modal
+      this.productModal.show();
+    },
+    closeProductModal() { // 關閉新增、編輯產品 modal
+      this.productModal.hide();
+    }
+  },
+  mounted() {
+    // 實體化 modal (這裡才取的到DOM元素)
+    this.productModal = new bootstrap.Modal(this.$refs.productModal);
   },
   template:
     `
@@ -173,6 +184,7 @@ export const delModalForProduct = {
     return {
       apiUrl: 'https://vue3-course-api.hexschool.io/v2',
       apiPath: 'rousong',
+      delProductModal: ''
     }
   },
   methods: {
@@ -187,12 +199,22 @@ export const delModalForProduct = {
           });
           // this.currentPage = 當刪除產品時，刪除完畢重新渲染畫面時，停留在當前頁面
           this.$emit('emit-update-product', this.currentPage);
-          this.$emit('close-delete-product-modal');
+          this.closeDeleteProductModal();
         })
         .catch((err) => {
           alert(err.data.message);
         })
     },
+    openDeleteProductModal() { // 開啟刪除產品 modal
+      this.delProductModal.show();
+    },
+    closeDeleteProductModal() { // 關閉刪除產品 modal
+      this.delProductModal.hide();
+    }
+  },
+  mounted() {
+    // 實體化 modal (這裡才取的到DOM元素)
+    this.delProductModal = new bootstrap.Modal(this.$refs.delProductModal);
   },
   template:
     `
